@@ -80,6 +80,7 @@ function setarTempo(segundos){
             minutos = parseInt(minutos % 60);
             hora.innerHTML = horas < 10 ? `0${horas}` : horas;
             p_horas = horas;
+            return
         }
         // Ternário para checar se "segundos" é menor que 10. Caso seja, adiciona "0" na frente
         segundo.innerHTML = segundos < 10 ? `0${segundos}` : segundos;
