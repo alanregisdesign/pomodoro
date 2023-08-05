@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Aula 02</title>
+</head>
+<body>
+    <!-- <div id="tempo"></div>
+    <button id="pararTempo">Parar</button> -->
+    <div class="master_wrapper">
+        <div id="padding_box">
+            <div id="container">
+                <h1>
+                    <span id="hora">00</span>:
+                    <span id="minuto">00</span>:
+                    <span id="segundo">00</span>
+                </h1>
+                <button id="acao" estado="i">Iniciar</button>
+            </div>
+        </div>
+    </div>
+
+    <section id="overlay"></section>
+    <section id="pomodoro_settings" class="modal">
+            <div class="set_header">
+                <h2>Configurações</h2>
+                <box-icon name="x" id="fechar"></box-icon>
+            </div>
+            <div>
+                <class class="setup">
+                    <div>
+                        <label for="pomodoroTime" class="mini-title">Pomodoro</label>
+                        <input type="number"  id="pomodoroTime" min="0" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="shortPauseTime" class="mini-title">Descanso Curto</label>
+                        <input type="number"  id="shortPauseTime" min="0" placeholder="0">
+                    </div>
+                    <div>
+                        <label for="longPauseTime" class="mini-title">Descanso Longo</label>
+                        <input type="number"  id="longPauseTime" min="0" placeholder="0">
+                    </div>
+                </class>
+            </div>
+    </section>
+
+    <box-icon name='cog' type='solid' color='#ffffff' id='opcoes'></box-icon>
+
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
