@@ -1,34 +1,53 @@
-opcoes.onclick = function(){
-    pomodoro_settings.classList.add('active');
+settingsButton.onclick = function(){
+    settingsWindow.classList.add('active');
     overlay.classList.add('active');
 
 }
 
 overlay.onclick = function(){
-    pomodoro_settings.classList.remove('active');
+    settingsWindow.classList.remove('active');
     overlay.classList.remove('active');
 
 }
 
-fechar.onclick = function(){
-    pomodoro_settings.classList.remove('active');
+closeSettings.onclick = function(){
+    settingsWindow.classList.remove('active');
     overlay.classList.remove('active');
-
 }
-
-// Código do Pomodoro
 
 let p_segundos = 0;
 let p_minutos = 0;
 let p_horas = 0;
 let i_contarSegundos;
 
-pomodoroTime.onkeyup = () => {
-    setarTempo(pomodoroTime.value);
+settingsApplyButton.onclick = () => {
+    setarTempo(pomodoroTime.value * 60);
+    settingsWindow.classList.remove('active');
+    overlay.classList.remove('active');
 }
 
-pomodoroTime.onclick = () => {
-    setarTempo(pomodoroTime.value);
+color1.onclick = () => {
+    var objColor = document.getElementById('loadingCircle');
+    var cor = {
+        'stroke': '#fa716b'
+    };
+    Object.assign(objColor.style, cor);
+}
+
+color2.onclick = () => {
+    var objColor = document.getElementById('loadingCircle');
+    var cor = {
+        'stroke': '#6ff3f8'
+    };
+    Object.assign(objColor.style, cor);
+}
+
+color3.onclick = () => {
+    var objColor = document.getElementById('loadingCircle');
+    var cor = {
+        'stroke': '#d981f9'
+    };
+    Object.assign(objColor.style, cor);
 }
 
 acao.onclick = () => {
@@ -38,25 +57,44 @@ acao.onclick = () => {
             acao.innerHTML = 'Parar'
             i_contarSegundos = setInterval(() => {
                 contarSegundos(p_segundos);
-            }, 100)
+            }, 1000);
+            var obj = document.getElementById('loadingCircle');
+            let timerValue = pomodoroTime.value * 60
+            let animDuration = timerValue.toString();
+            var animar = {
+                'animation-name': 'timerAnim',
+                'animation-duration': animDuration.concat('s'),
+                'animation-timing-function': 'linear',
+                'animation-play-state': 'running'
+            };
+            Object.assign(obj.style, animar);
         break;
         case 'p':
             acao.setAttribute('estado', 'c');
             acao.innerHTML = 'Continuar';
             i_contarSegundos = clearInterval(i_contarSegundos);
+            var obj = document.getElementById('loadingCircle');
+            var animar = {
+                'animation-play-state': 'paused'
+            };
+            Object.assign(obj.style, animar);
         break;
         case 'c':
             acao.setAttribute('estado', 'p')
             acao.innerHTML = 'Parar'
             i_contarSegundos = setInterval(() => {
                 contarSegundos(p_segundos);
-            }, 100)
+            }, 1000)
+            var obj = document.getElementById('loadingCircle');
+            var animar = {
+                'animation-play-state': 'running'
+            };
+            Object.assign(obj.style, animar);
         break;
     }
 }
 
 function setarTempo(segundos){
-    // Verifica se "segundos" é um número válido
     if(segundos){
         if(segundos > 59){
             let minutos = parseInt(segundos / 60);
@@ -75,9 +113,7 @@ function setarTempo(segundos){
             }
             return;
         }
-        // Ternário para checar se "segundos" é menor que 10. Caso seja, adiciona "0" na frente
         segundo.innerHTML = segundos < 10 ? `0${segundos}` : segundos;
-        // Atribuindo segundos a uma variável global
         p_segundos = segundos
     }else{
         minuto.innerHTML = '00';
@@ -94,21 +130,22 @@ function contarSegundos(){
         return;
     }else{
         if(p_segundos == 0){
-            p_segundos = 59;
             if(p_minutos > 0){
                 p_minutos--;
-            }
-            minuto.innerHTML = p_minutos < 10 ? `0${p_minutos}` : p_minutos;
-            segundo.innerHTML = '59';
-            if(p_horas > 0 & p_minutos == 0){
-                p_minutos = 59;
+                p_segundos = 60;
+                segundo.innerHTML = '60';
+            }else{
                 p_horas--;
-                horas.innerHTML = p_horas < 10 ? `0${p_horas}` : p_horas;
-                minutos.innerHTML = '59';
+                p_minutos = 59
+                minuto.innerHTML = '59';
+                p_segundos = 60;
+                segundo.innerHTML = '60';
             }
-            return;
         }
     }
     p_segundos--;
     segundo.innerHTML = p_segundos < 10 ? `0${p_segundos}` : p_segundos;
+    minuto.innerHTML = p_minutos < 10 ? `0${p_minutos}` : p_minutos;
+    hora.innerHTML = p_horas < 10 ? `0${p_horas}` : p_horas;
+
 }

@@ -6,47 +6,80 @@
     <link rel="stylesheet" href="style.css">
     <title>Aula 02</title>
 </head>
+
 <body>
-    <!-- <div id="tempo"></div>
-    <button id="pararTempo">Parar</button> -->
-    <div class="master_wrapper">
-        <div id="padding_box">
-            <div id="container">
-                <h1>
-                    <span id="hora">00</span>:
-                    <span id="minuto">00</span>:
-                    <span id="segundo">00</span>
-                </h1>
-                <button id="acao" estado="i">Iniciar</button>
-            </div>
+    <div class="title">pomodoro</div>
+
+    <div class="typeWrapper">
+        <div class="focus">pomodoro</div>
+        <div class="shortBreak">descanso curto</div>
+        <div class="longBreak">descanso longo</div>
+    </div>
+    
+    <div class="clockWrapper">
+        <div id="container">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400px" height="400px">
+                <defs>
+                   <linearGradient id="GradientColor">
+                      <stop offset="0%" stop-color="#e91e63" />
+                      <stop offset="100%" stop-color="#673ab7" />
+                   </linearGradient>
+                </defs>
+                <circle cx="200" cy="200" r="160" stroke-linecap="round" id="loadingCircle" />
+            </svg>
+            <h1>
+                <span id="hora">00</span>:<span id="minuto">00</span>:<span id="segundo">00</span>
+            </h1>
+            <button id="acao" estado="i">Iniciar</button>
         </div>
     </div>
 
+    <div class="settings">
+        <box-icon name='cog' type='solid' color='#dae1fe' id='settingsButton'></box-icon>
+    </div>
+
     <section id="overlay"></section>
-    <section id="pomodoro_settings" class="modal">
-            <div class="set_header">
-                <h2>Configurações</h2>
-                <box-icon name="x" id="fechar"></box-icon>
+
+    <section id="settingsWindow" class="modal">
+        <div class="settingsHeader">
+            <h2>Configurações</h2>
+            <box-icon name="x" id="closeSettings"></box-icon>
+        </div>
+        <div class="clockSettingsLabel">Tempo (em minutos)</div>
+        <div class="setupPomodoroWrapper">
+            <div>
+                <label for="pomodoroTime">Pomodoro</label>
+                <input type="number"  id="pomodoroTime" min="0" placeholder="0">
             </div>
             <div>
-                <class class="setup">
-                    <div>
-                        <label for="pomodoroTime" class="mini-title">Pomodoro</label>
-                        <input type="number"  id="pomodoroTime" min="0" placeholder="0">
-                    </div>
-                    <div>
-                        <label for="shortPauseTime" class="mini-title">Descanso Curto</label>
-                        <input type="number"  id="shortPauseTime" min="0" placeholder="0">
-                    </div>
-                    <div>
-                        <label for="longPauseTime" class="mini-title">Descanso Longo</label>
-                        <input type="number"  id="longPauseTime" min="0" placeholder="0">
-                    </div>
-                </class>
+                <label for="shortPauseTime">Descanso Curto</label>
+                <input type="number"  id="shortPauseTime" min="0" placeholder="0">
             </div>
+            <div>
+                <label for="longPauseTime">Descanso Longo</label>
+                <input type="number"  id="longPauseTime" min="0" placeholder="0">
+            </div>
+        </div>
+        <div class="separator"></div>
+        <div class="fontSelector">Fonte
+            <div class="fontPickerWrapper">
+                <div id="font1">Aa</div>
+                <div id="font2">Aa</div>
+                <div id="font3">Aa</div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <div class="colorSelector">Cor
+            <div class="colorPickerWrapper">
+                <div id="color1"></div>
+                <div id="color2"></div>
+                <div id="color3"></div>
+            </div>
+        </div>
+        <div class="applyButtonWrapper">
+            <div id="settingsApplyButton">Aplicar</div>
+        </div>
     </section>
-
-    <box-icon name='cog' type='solid' color='#ffffff' id='opcoes'></box-icon>
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="script.js"></script>

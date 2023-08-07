@@ -2,68 +2,89 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif
+    font-family: Arial, Helvetica, sans-serif;
+    /* border: 1px solid #907f7f; */
 }
 
 body{
     height: 100vh;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     background-color: #1e2140;
+    gap: 50px;
 }
 
-.master_wrapper{
+.title{
+    font-size: 36px;
+    font-weight: 600;
+    color: #dae1fe;
+}
+
+.typeWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 480px;
+    height: 60px;
+    background-color: #151932;
+    border-radius: 60px;
+    padding: 8px;
+}
+
+.typeWrapper div{
+    width: 160px;
+    height: 50px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6c7089;
+    font-weight: 700;
+}
+
+.typeWrapper div:active{
+    background-color: #f87070;
+    color: #151932;
+}
+
+.clockWrapper{
     width: 100%;
 }
 
-#padding_box{
+.clockWrapper #container{
     position: relative;
-    z-index: 1;
-    border-radius: 50%;
-}
-
-/* #padding_box:before{
-    content: "";
-    position: absolute;
-    z-index: -1;
-    width: 530px;
-    height: 530px;
-    border-radius: 50%;
-    background-image: linear-gradient(135deg, #3b406f, #0b0f26);
-    filter: blur(20px);
+    z-index: 2;
+    width: 400px;
+    height: 400px;
     display: flex;
-    align-items: center;
-} */
-
-#container{
-    box-shadow: 10px 10px 20px #0f1434, -10px -10px 20px #292d52;
-    width: 500px;
-    height: 500px;
-    background-color: #0f1434;
-    border-radius: 50%;
-    border: 20px solid transparent;
-    background: linear-gradient(135deg, #0f1434, #0f1434) padding-box, linear-gradient(135deg, #0f1434, #292d52) border-box;
-    display: flex;
-    margin: 0 auto;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
+    background-color: #0f1434;
+    background: linear-gradient(135deg, #0f1434, #0f1434) padding-box, linear-gradient(135deg, #0f1434, #292d52) border-box;
+    box-shadow: 20px 20px 40px #0a0d22, -20px -20px 40px #363b68;
+    border: 20px solid transparent;
+    border-radius: 50%;
     gap: 16px;
 }
 
-#container h1{
-    font-size: 80px;
+.clockWrapper #container h1{
+    z-index: 2;
+    font-size: 60px;
     padding-top: 40px;
-    color: #d9e0fd;
+    color: #dae1fe;
 }
 
-#container #acao{
+.clockWrapper #container #acao{
+    z-index: 2;
     width: 100%;
     background-color: transparent;
     border-radius: 5px;
-    color: #d9e0fd;
+    color: #dae1fe;
     font-size: 18px;
     font-weight: bold;
     text-transform: uppercase;
@@ -73,71 +94,35 @@ body{
     cursor: pointer;
 }
 
-#container #acao[estado=i]{
-    color: #d9e0fd;
-}
-
-#container #acao[estado=p]{
-    color: #d9e0fd;
-}
-
-#container #acao[estado=c]{
-    color: #d9e0fd;
-}
-
-#container .setup{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-#container .setup input{
-    width: calc(33% - 8px);
-    height: 40px;
-    padding-left: 8px;
-}
-
-#pomodoro_settings{
+svg{
     position: absolute;
-    z-index: 4;
-    width: 500px;
-    height: 400px;
+    z-index: 1;
+    transform: rotate(270deg);
+}
+
+svg #loadingCircle{
+    fill: none;
+    stroke: #fa716b;
+    stroke-width: 10px;
+    stroke-dasharray: 1003;
+    stroke-dashoffset: 0;
+}
+
+@keyframes timerAnim{
+    100%{
+        stroke-dashoffset: 1003;
+    }
+}
+
+.settings{
     display: flex;
-    padding: 42px;
-    flex-wrap: wrap;
-    background-color: white;
-    border-radius: 40px;
 }
 
-.modal{
-    width: 500px;
-    position: fixed;
-    top: 60%;
-    left: calc(50% - 250px);
-    border-radius: 10px;
-    background-color: var(--gray2);
-    padding: 16px;
-    transform: translateY(-50%);
-    opacity: 0;
-    visibility: hidden;
-    transition-duration: 200ms;
-    transition-delay: 200ms;
-}
-.modal.active{
-    top: 50%;
-    opacity: 1;
-    visibility: visible;
-}
-
-#opcoes{
+.settings #settingsButton{
     z-index: 1;
     width: 50px;
     height: 50px;
     cursor:pointer;
-}
-
-#fechar{
-    cursor: pointer;
 }
 
 #overlay{
@@ -159,48 +144,177 @@ body{
     visibility: visible;
 }
 
-#pomodoro_settings h2{
+#settingsWindow{
+    position: absolute;
+    z-index: 4;
+    width: 500px;
+    height: 400px;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    padding: 42px;
+    gap: 16px;
+    background-color: white;
+    border-radius: 40px;
+}
+
+#settingsWindow .settingsHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+}
+
+#settingsWindow .settingsHeader h2{
     text-transform: uppercase;
     font-weight: 700;
 }
 
-#pomodoro_settings input{
-    width: 80px;
-    height: 40px;
-    background-color: #e1e4f0;
-    border: 0px solid;
-    border-radius: 10px;
+#settingsWindow .settingsHeader #closeSettings{
+    cursor: pointer;
 }
 
-.set_header{
-    display: flex;
-    justify-content: space-between;
+#settingsWindow .setupPomodoroWrapper{
     width: 100%;
-}
-
-.setup{
-    width: 400px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     margin: 0;
     padding: 0;
 }
 
-label{
+#settingsWindow .setupPomodoroWrapper input{
+    width: 80px;
+    height: 40px;
     display: flex;
     flex-direction: column;
-}
-
-input{
-    display: flex;
-    flex-direction: column;
+    background-color: #e1e4f0;
+    border: 0px solid;
+    border-radius: 10px;
     padding: 0px 15px;
 }
 
-#pomodoro_settings .mini-title{
+#settingsWindow .setupPomodoroWrapper label{
     width: 100%;
+    display: flex;
+    flex-direction: column;
     font-size: 14px;
     text-transform: lowercase;
     font-weight: 600;
     color: gray;
+}
+
+#settingsWindow .separator{
+    width: 100%;
+    height: 1px;
+    background-color: #d1d1d1;
+}
+
+#settingsWindow .colorSelector, #settingsWindow .fontSelector{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#settingsWindow .colorSelector .colorPickerWrapper, #settingsWindow .fontSelector .fontPickerWrapper{
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#settingsWindow .fontSelector #font1{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #eef1fa;
+    cursor: pointer;
+}
+
+#settingsWindow .fontSelector #font2{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #eef1fa;
+    cursor: pointer;
+}
+
+#settingsWindow .fontSelector #font3{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #eef1fa;
+    cursor: pointer;
+}
+
+#settingsWindow .colorSelector #color1{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fa716b;
+    cursor: pointer;
+}
+
+#settingsWindow .colorSelector #color2{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #6ff3f8;
+    cursor: pointer;
+}
+
+#settingsWindow .colorSelector #color3{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #d981f9;
+    cursor: pointer;
+}
+
+#settingsWindow .applyButtonWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#settingsWindow .applyButtonWrapper #settingsApplyButton{
+    width: 140px;
+    height: 50px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    background-color: #f87070;
+    color: #efeff9;
+    cursor: pointer;
+}
+
+.modal{
+    position: fixed;
+    top: 60%;
+    left: calc(50% - 250px);
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition-duration: 200ms;
+    transition-delay: 200ms;
+}
+
+.modal.active{
+    top: 50%;
+    opacity: 1;
+    visibility: visible;
 }
